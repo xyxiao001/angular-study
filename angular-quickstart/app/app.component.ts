@@ -1,9 +1,6 @@
 import { Component } from '@angular/core'
 
-export class Hero {
-  id: number
-  name: string
-}
+import { Hero } from './hero'
 
 const HEROES: Hero[] = [
   {
@@ -32,22 +29,24 @@ const HEROES: Hero[] = [
   selector: 'my-app',
   template:`
     <h1>{{ title }}</h1>
-    <h2>{{ hero.name }} details!</h2>
-    <div><label>name: </label><input type="text" [(ngModel)]="hero.name" placeholder="name"></div>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes">
+      <li *ngFor="let hero of heroes"
+        [class.selected]="hero === selectedHero"
+        (click)="onSelect(hero)">
         <span class="badge">{{ hero.id }}</span> {{ hero.name }}
       </li>
     </ul>
+    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
     `
 })
 
 export class AppComponent {
   title = 'Tour of Heroes'
   heroes = HEROES
-  hero: Hero = {
-    id: 1,
-    name: 'windstorm'
+  selectedHero: Hero
+
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero
   }
 }
