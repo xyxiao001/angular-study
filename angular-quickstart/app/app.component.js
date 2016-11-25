@@ -9,33 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var HEROES = [
-    {
-        id: 1,
-        name: '小明'
-    },
-    {
-        id: 2,
-        name: '小红'
-    },
-    {
-        id: 3,
-        name: '小刚'
-    },
-    {
-        id: 4,
-        name: '小杰'
-    },
-    {
-        id: 5,
-        name: '小迪'
-    }
-];
+var hero_service_1 = require("./hero-service");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(heroService) {
+        this.heroService = heroService;
         this.title = 'Tour of Heroes';
-        this.heroes = HEROES;
     }
+    AppComponent.prototype.getHeroes = function () {
+        this.heroService.getHeroes();
+    };
     AppComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
     };
@@ -44,9 +26,10 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n    <h1>{{ title }}</h1>\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"let hero of heroes\"\n        [class.selected]=\"hero === selectedHero\"\n        (click)=\"onSelect(hero)\">\n        <span class=\"badge\">{{ hero.id }}</span> {{ hero.name }}\n      </li>\n    </ul>\n    <my-hero-detail [hero]=\"selectedHero\"></my-hero-detail>\n    "
+        template: "\n    <h1>{{ title }}</h1>\n    <h2>My Heroes</h2>\n    <ul class=\"heroes\">\n      <li *ngFor=\"let hero of heroes\"\n        [class.selected]=\"hero === selectedHero\"\n        (click)=\"onSelect(hero)\">\n        <span class=\"badge\">{{ hero.id }}</span> {{ hero.name }}\n      </li>\n    </ul>\n    <my-hero-detail [hero]=\"selectedHero\"></my-hero-detail>\n    ",
+        providers: [hero_service_1.HeroService]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [hero_service_1.HeroService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
